@@ -1,0 +1,165 @@
+﻿@section css
+{
+    <link href="~/Content/css/jquery-ui.css" rel="stylesheet" />
+}
+
+@section scripts
+{
+    <script src="~/Scripts/hc/highcharts.js"></script>
+    <script src="~/Scripts/hc/highcharts-more.js"></script>
+    <script src="~/Scripts/hc/highcharts-3d.js"></script>
+    
+    <script>
+        $(function() {
+            $('#container').highcharts({
+                chart: {
+                    type: 'bar'
+                },
+                title: {
+                    text: 'Votaciones PREP'
+                },
+                xAxis: {
+                    categories: ['PAN/PT', 'PRI/PVEM/PNA', 'PRD', 'Morena', 'Otros']
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: 'Votaciones totales'
+                    }
+                },
+                legend: {
+                    reversed: false
+                },
+                series: [{
+                        showInLegend: false,
+                        name: 'Diferencia',
+                        data: [0, { y: 1000, color: '#d5d5d5' }],
+                        siglas: { 'PAN': 'pan', 'PRI': 'pri', 'PRD': 'pan', 'Morena': 'morena', 'Otros': 'otros' }
+                    }, {
+                        showInLegend: false,
+                        name: 'Actual',
+                        data: [{ y: 3000, color: '#00468E' },
+                            { y: 2000, color: '#F6111B' },
+                            { y: 1000, color: '#FFD90A' },
+                            { y: 800, color: 'brown' },
+                            { y: 400, color: '#9e9f98' }],
+                        siglas: { 'PAN': 'pan', 'PRI': 'pri', 'PRD': 'pan', 'Morena': 'morena', 'Otros': 'otros' }
+                    }],
+                plotOptions: {
+                    series: {
+                        stacking: 'normal',
+                        dataLabels: {
+                            useHTML: true,
+                            enabled: true,
+                            //rotation: -90,
+                            color: '#000000',
+                            align: 'right',
+                            x: 2,
+                            y: 18,
+                            formatter: function(x) {
+                                console.log(x);
+                                var img = this.series.name.toLowerCase();
+                                //alert(this.series.options.siglas);
+                                return '<div><span class="label label-warning arrowed-right arrowed-in">'
+                                    + ((this.series.options.siglas === undefined ||
+                                        this.series.options.siglas[this.x] === undefined || this.series.options.siglas[this.x].length === 3) ? "" : " * ")
+                                    + window.formatThousands(this.y) +
+                                    '</span><img width="30px" height="30px" src="@Url.Content("~/Content/images/parties/")' + this.series.options.siglas[this.x] + '-t.png" /></div>';
+                            },
+                            style: {
+                                fontSize: '13px',
+                                fontFamily: 'Verdana, sans-serif',
+                            }
+                        }
+                    }
+                },
+                credits: {
+                    enabled: false
+                }
+            });
+
+
+        });
+
+        $(function() {
+
+            // Radialize the colors
+            Highcharts.getOptions().colors = Highcharts.map(Highcharts.getOptions().colors, function(color) {
+                return {
+                    radialGradient: { cx: 0.5, cy: 0.3, r: 0.7 },
+                    stops: [
+                        [0, color],
+                        [1, Highcharts.Color(color).brighten(-0.3).get('rgb')] // darken
+                    ]
+                };
+            });
+
+            // Build the chart
+            $('#container-pipe').highcharts({
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false
+                },
+                title: {
+                    text: 'Casillas 2015'
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        size: '60%',
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            style: {
+                                width: '80px'
+                            },
+                            enabled: true,
+                            format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                            connectorColor: 'silver'
+                        }
+                    }
+                },
+                series: [{
+                    type: 'pie',
+                    name: 'Casillas',
+                    data: [
+                        {
+                            name: 'Capturdas',
+                            y: 64.4,
+                            color: 'orange'
+                        },
+                        {
+                            name: 'No capturdas',
+                            y: 35.6,
+                            sliced: true,
+                            selected: true,
+                            color: '#272726'
+                        }
+                    ]
+                }],
+                credits: {
+                    enabled: false
+                }
+            });
+        });
+
+    </script>
+    
+    
+
+}
+
+
+    <div>
+        <div class="row">
+            <div class="col-xs-7">
+                <div id="container" style="height: 500px; margin: 0 auto; color:#d5d5d5;"></div>
+            </div>
+            <div class="col-xs-5">
+                <div id="container-pipe" style="height: 350px; margin: 0 auto"></div>
+            </div>
+        </div>
+    </div>
