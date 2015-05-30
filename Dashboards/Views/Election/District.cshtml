@@ -1,0 +1,107 @@
+﻿<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-xs-12 element-center">
+        <h2><b>Elecciones para presidente municipal</b> | 2015 </h2>
+    </div>
+</div>
+
+<div class="ibox" ng-controller="electionDistrictCtrl">
+    <div class="ibox-title">
+        <h5>
+            PREP elecciones para presidente municipal - Distrito 19
+            <br />
+            <br />
+            <select class="form-control" ng-options="item as item.value for item in lstTypes" ng-model="type"></select>
+        </h5>
+        <div class="ibox-tools">
+            <span class="label label-success"><h4>Regiones</h4></span>
+        </div>
+    </div>
+    <div class="ibox-content">
+        <div class="project-list">
+            <table class="table table-hover">
+                <tbody>
+                    <tr>
+                        <td class="element-center col-xs-1">
+                            <a class="label label-warning font-sz-m" href="@Url.Action("Region", "Election")">Region I</a>
+                        </td>
+                        <td class="project-title col-xs-2">
+                            <button class="btn btn-info btn-circle btn-xs" type="button">
+                                <i class="fa fa-dedent"></i>
+                            </button>&nbsp;&nbsp;
+                            <a href="">Votación</a>
+                        </td>
+                        <td class="project-title col-xs-2">
+                            <button class="btn btn-success btn-s-xs" type="button">420 &nbsp;<i class="fa fa-thumbs-up"></i>&nbsp;</button><small>&nbsp;&nbsp;Casillas capturadas</small>&nbsp;&nbsp;&nbsp;&nbsp;
+                        </td>
+                        @*<td class="project-title">
+                                <button class="btn btn-danger btn-s-xs" type="button">190 &nbsp;<i class="fa fa-thumbs-down"></i>&nbsp;</button><small>&nbsp;&nbsp;Casillas sin resultado</small>
+                            </td>*@
+                        <td class="project-title col-xs-3">
+                            <div class="progress progress-mini">
+                                <div style="width: 70%;" class="progress-bar progress-bar-success"></div>
+                            </div>
+                        </td>
+                        <td class="project-title">
+                            <small class="element-center">Casillas completadas: 70% &nbsp;(70/100)</small>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="element-center">
+                            <a class="label label-warning font-sz-m" href="@Url.Action("Region", "Election")">Region II</a>
+                        </td>
+                        <td class="project-title">
+                            <button class="btn btn-info btn-circle btn-xs" type="button">
+                                <i class="fa fa-dedent"></i>
+                            </button>&nbsp;&nbsp;
+                            <a href="">Votación</a>
+                        </td>
+                        <td class="project-title">
+                            <button class="btn btn-success btn-s-xs" type="button">420 &nbsp;<i class="fa fa-thumbs-up"></i>&nbsp;</button><small>&nbsp;&nbsp;Casillas capturadas</small>&nbsp;&nbsp;&nbsp;&nbsp;
+                        </td>
+                        @*<td class="project-title">
+                                <button class="btn btn-danger btn-s-xs" type="button">190 &nbsp;<i class="fa fa-thumbs-down"></i>&nbsp;</button><small>&nbsp;&nbsp;Casillas sin resultado</small>
+                            </td>*@
+                        <td class="project-title">
+                            <div class="progress progress-mini">
+                                <div style="width: 70%;" class="progress-bar progress-bar-success"></div>
+                            </div>
+                        </td>
+                        <td class="project-title">
+                            <small class="element-center">Casillas completadas: 70% &nbsp;(70/100)</small>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="element-center">
+                            <a class="label label-warning font-sz-m" href="@Url.Action("Region", "Election")">Region III</a>
+                        </td>
+                        <td class="project-title">
+                            <button class="btn btn-info btn-circle btn-xs" type="button">
+                                <i class="fa fa-dedent"></i>
+                            </button>&nbsp;&nbsp;
+                            <a href="">Votación</a>
+                        </td>
+                        <td class="project-title">
+                            <button class="btn btn-success btn-s-xs" type="button">420 &nbsp;<i class="fa fa-thumbs-up"></i>&nbsp;</button><small>&nbsp;&nbsp;Casillas con resultado</small>&nbsp;&nbsp;&nbsp;&nbsp;
+                        </td>
+                        @*<td class="project-title">
+                                <button class="btn btn-danger btn-s-xs" type="button">190 &nbsp;<i class="fa fa-thumbs-down"></i>&nbsp;</button><small>&nbsp;&nbsp;Casillas sin resultado</small>
+                            </td>*@
+                        <td class="project-title">
+                            <div class="progress progress-mini">
+                                <div style="width: 70%;" class="progress-bar progress-bar-success"></div>
+                            </div>
+                        </td>
+                        <td class="project-title">
+                            <small class="element-center">Casillas completadas: 70% &nbsp;(70/100)</small>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script src="~/Scripts/app/ctrl/electionDistrictCtrl.js"></script>
+}

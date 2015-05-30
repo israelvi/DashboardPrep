@@ -1,4 +1,6 @@
 ﻿using Autofac;
+using Dashboards.Hubs;
+using Dashboards.Repository;
 using Dashboards.Service;
 
 namespace Dashboards
@@ -9,9 +11,9 @@ namespace Dashboards
         {
             protected override void RegisterTypes(ContainerBuilder builder)
             {
-                //builder.RegisterType<StoreRepository>().As<IStoreRepository>();
+                builder.RegisterType<PrepRepository>().As<IPrepRepository>();
                 builder.RegisterType<PrepService>().As<IPrepService>();
-                //builder.RegisterType<OrderHub>().SingleInstance();
+                builder.RegisterType<PrepHub>().SingleInstance();
             }
         }
     }

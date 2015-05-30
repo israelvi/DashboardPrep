@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="PrepModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Elecciones">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="IdTipoEleccion" Type="int" Nullable="false" />
+          <Property Name="Pan" Type="int" Nullable="false" />
+          <Property Name="Pt" Type="int" Nullable="false" />
+          <Property Name="Pri" Type="int" Nullable="false" />
+          <Property Name="Pvem" Type="int" Nullable="false" />
+          <Property Name="Pna" Type="int" Nullable="false" />
+          <Property Name="Prd" Type="int" Nullable="false" />
+          <Property Name="Morena" Type="int" Nullable="false" />
+          <Property Name="Otros" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="PrepModelStoreContainer">
+          <EntitySet Name="Elecciones" EntityType="Self.Elecciones" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PrepModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Elecciones">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="IdTipoEleccion" Type="Int32" Nullable="false" />
+          <Property Name="Pan" Type="Int32" Nullable="false" />
+          <Property Name="Pt" Type="Int32" Nullable="false" />
+          <Property Name="Pri" Type="Int32" Nullable="false" />
+          <Property Name="Pvem" Type="Int32" Nullable="false" />
+          <Property Name="Pna" Type="Int32" Nullable="false" />
+          <Property Name="Prd" Type="Int32" Nullable="false" />
+          <Property Name="Morena" Type="Int32" Nullable="false" />
+          <Property Name="Otros" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="DbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Elecciones" EntityType="Self.Elecciones" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PrepModelStoreContainer" CdmEntityContainer="DbEntities">
+          <EntitySetMapping Name="Elecciones">
+            <EntityTypeMapping TypeName="PrepModel.Elecciones">
+              <MappingFragment StoreEntitySet="Elecciones">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IdTipoEleccion" ColumnName="IdTipoEleccion" />
+                <ScalarProperty Name="Pan" ColumnName="Pan" />
+                <ScalarProperty Name="Pt" ColumnName="Pt" />
+                <ScalarProperty Name="Pri" ColumnName="Pri" />
+                <ScalarProperty Name="Pvem" ColumnName="Pvem" />
+                <ScalarProperty Name="Pna" ColumnName="Pna" />
+                <ScalarProperty Name="Prd" ColumnName="Prd" />
+                <ScalarProperty Name="Morena" ColumnName="Morena" />
+                <ScalarProperty Name="Otros" ColumnName="Otros" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

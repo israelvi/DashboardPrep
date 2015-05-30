@@ -4,8 +4,13 @@ namespace Dashboards.Controllers
 {
     public class DashboardController : Controller
     {
-        // GET: Dashboard
-        public ActionResult Index()
+
+        public ActionResult Major()
+        {
+            return View();
+        }
+
+        public ActionResult Delegate()
         {
             return View();
         }

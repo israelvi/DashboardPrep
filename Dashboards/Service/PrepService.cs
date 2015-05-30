@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Dashboards.Models;
 using Dashboards.Repository;
 
 namespace Dashboards.Service
@@ -13,13 +14,12 @@ namespace Dashboards.Service
             _prepRepository = prepRepository;
         }
 
-        public IList<string> LastResult(int candidateType)
+        public IList<EleccionesDto> LastResult(int candidateType)
         {
-            throw new NotImplementedException();
-            //using (_prepRepository)
-            //{
-                
-            //}
+            using (_prepRepository)
+            {
+                return _prepRepository.LastResult(candidateType);
+            }
         }
     }
 }

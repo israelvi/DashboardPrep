@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
+using Dashboards.Models;
 
 namespace Dashboards.Service
 {
     public interface IPrepService
     {
-        IList<string> LastResult(int candidateType);
+        IList<EleccionesDto> LastResult(int candidateType);
     }
 }

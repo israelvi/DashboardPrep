@@ -8,9 +8,9 @@
     <script src="~/Scripts/hc/highcharts.js"></script>
     <script src="~/Scripts/hc/highcharts-more.js"></script>
     <script src="~/Scripts/hc/highcharts-3d.js"></script>
-    
+
     <script>
-        $(function() {
+        $(function () {
             $('#container').highcharts({
                 chart: {
                     type: 'bar'
@@ -30,33 +30,29 @@
                 legend: {
                     reversed: false
                 },
-                series: [{
-                        showInLegend: false,
-                        name: 'Diferencia',
-                        data: [0, { y: 1000, color: '#d5d5d5' }],
-                        siglas: { 'PAN': 'pan', 'PRI': 'pri', 'PRD': 'pan', 'Morena': 'morena', 'Otros': 'otros' }
-                    }, {
-                        showInLegend: false,
-                        name: 'Actual',
-                        data: [{ y: 3000, color: '#00468E' },
-                            { y: 2000, color: '#F6111B' },
-                            { y: 1000, color: '#FFD90A' },
-                            { y: 800, color: 'brown' },
-                            { y: 400, color: '#9e9f98' }],
-                        siglas: { 'PAN': 'pan', 'PRI': 'pri', 'PRD': 'pan', 'Morena': 'morena', 'Otros': 'otros' }
-                    }],
+                tooltip: {
+                    formatter: function () {
+                        var tt = '<div style="font-size:11px; font-weight:bolder; color:' + this.series.options.siglas[this.x].c + '">'
+                            + this.series.options.siglas[this.x].p + '</div>' + '<br/>'
+                            + '<div style="font-size:10px;">●</div><div>Votaciones: '
+                            + window.formatThousands(this.y) + '</div><br/>';
+                        console.log(tt);
+                        return tt;
+                    }
+                },
                 plotOptions: {
                     series: {
+                        animation: false,
                         stacking: 'normal',
                         dataLabels: {
                             useHTML: true,
-                            enabled: true,
+                            enabled: false,
                             //rotation: -90,
                             color: '#000000',
                             align: 'right',
                             x: 2,
                             y: 18,
-                            formatter: function(x) {
+                            @*formatter: function (x) {
                                 console.log(x);
                                 var img = this.series.name.toLowerCase();
                                 //alert(this.series.options.siglas);
@@ -65,7 +61,7 @@
                                         this.series.options.siglas[this.x] === undefined || this.series.options.siglas[this.x].length === 3) ? "" : " * ")
                                     + window.formatThousands(this.y) +
                                     '</span><img width="30px" height="30px" src="@Url.Content("~/Content/images/parties/")' + this.series.options.siglas[this.x] + '-t.png" /></div>';
-                            },
+                            }*@
                             style: {
                                 fontSize: '13px',
                                 fontFamily: 'Verdana, sans-serif',
@@ -81,10 +77,10 @@
 
         });
 
-        $(function() {
+        $(function () {
 
             // Radialize the colors
-            Highcharts.getOptions().colors = Highcharts.map(Highcharts.getOptions().colors, function(color) {
+            Highcharts.getOptions().colors = Highcharts.map(Highcharts.getOptions().colors, function (color) {
                 return {
                     radialGradient: { cx: 0.5, cy: 0.3, r: 0.7 },
                     stops: [
@@ -147,19 +143,100 @@
         });
 
     </script>
-    
-    
+
+    <script>
+
+        $(function () {
+            var prepHub = $.connection.prepHub;
+            
+            $.connection.hub.logging = true;
+            $.connection.hub.start().done(function () {
+                lastResult(1);
+            });
+
+            prepHub.client.lastResultProp = function (model) {
+                processModel(model);
+            };
+
+            prepHub.client.hello = function (model) {
+                console.log(model);
+            };
+
+            function lastResult(elecType) {
+                prepHub.server.lastResult(elecType).then(
+                    function (res, e, a, c) {
+                        processModel(res.LstData[0]);
+                    });
+            }
+
+            function processModel(model) {
+                var chart = $('#container').highcharts();
+
+                for (var j = chart.series.length - 1; j >= 0; j--) {
+                    chart.series[j].remove();
+                }
+
+                var difPri = (model.Pan + model.Pt) - (model.Pri + model.Pvem + model.Pna);
+                var difPan = -difPri;
+
+                if (difPri > 0)
+                    difPan = 0;
+                else
+                    difPri = 0;
+
+                var series = [{
+                        showInLegend: false,
+                        name: 'Diferencia',
+                        data: [{ y: difPan, color: '#d5d5d5' }, { y: difPri, color: '#d5d5d5' }],
+                        siglas: { 'PAN/PT': { p: 'Diferencia', c: '#000' }, 'PRI/PVEM/PNA': { p: 'Diferencia', c: '#000' }, 'PRD': 'prd', 'Morena': 'morena', 'Otros': 'otros' }
+                    }, {
+                        showInLegend: false,
+                        name: 'Alianza N2',
+                        data: [0, { y: model.Pna, color: '#00A4AC' }],
+                        siglas: { 'PAN/PT': { p: '', c: '' }, 'PRI/PVEM/PNA': { p: 'PNA', c: '#00A4AC' }, 'PRD': { p: '', c: '' }, 'Morena': '', 'Otros': '' }
+                    }, {
+                        showInLegend: false,
+                        name: 'Alianza N1',
+                        data: [{ y: model.Pt, color: '#FF853C' }, { y: model.Pvem, color: '#00913E' }],
+                        siglas: { 'PAN/PT': { p: 'PT', c: '#FF853C' }, 'PRI/PVEM/PNA': { p: 'PVEM', c: '#00913E' }, 'PRD': '', 'Morena': '', 'Otros': '' }
+                    }, {
+                        showInLegend: false,
+                        name: 'Actual',
+                        data: [{ y: model.Pan, color: '#00468E' },
+                            { y: model.Pri, color: '#F6111B' },
+                            { y: model.Prd, color: '#FFD90A' },
+                            { y: model.Morena, color: 'brown' },
+                            { y: model.Otros, color: '#9e9f98' }],
+                        siglas: {
+                            'PAN/PT': { p: 'PAN', c: '#00468E' },
+                            'PRI/PVEM/PNA': { p: 'PRI', c: '#F6111B' },
+                            'PRD': { p: 'PRD', c: '#FFD90A' },
+                            'Morena': { p: 'Morena', c: 'brown' },
+                            'Otros': { p: 'Otros', c: '#9e9f98' }
+                        }
+                    }];
+                
+                for(j=0; j<series.length; j++)
+                    chart.addSeries(series[j], false);
+
+                chart.redraw();
+            }
+
+        });
+    </script>
 
 }
 
 
-    <div>
-        <div class="row">
-            <div class="col-xs-7">
-                <div id="container" style="height: 500px; margin: 0 auto; color:#d5d5d5;"></div>
-            </div>
-            <div class="col-xs-5">
-                <div id="container-pipe" style="height: 350px; margin: 0 auto"></div>
-            </div>
+<div>
+    <br />
+    <br />
+    <div class="row">
+        <div class="col-xs-7">
+            <div id="container" style="height: 500px; margin: 0 auto; color:#d5d5d5;"></div>
+        </div>
+        <div class="col-xs-5">
+            <div id="container-pipe" style="height: 350px; margin: 0 auto"></div>
         </div>
     </div>
+</div>

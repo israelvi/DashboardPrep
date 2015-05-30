@@ -1,34 +1,75 @@
-﻿window.formatThousands = function (n, dp) {
-    var s = '' + (Math.floor(n)), d = n % 1, i = s.length, r = '';
-    while ((i -= 3) > 0) {
-        r = ',' + s.substr(i, 3) + r;
-    }
-    return s.substr(0, i + 3) + r + (d ? '.' + Math.round(d * Math.pow(10, dp || 2)) : '');
+﻿window.showUpsert = function(id, divScope, urlToGo, jqGridToUse) {
+    var scope = angular.element($(divScope)).scope();
+    scope.show({ id: id }, urlToGo).
+        then(function () { $(jqGridToUse).trigger("reloadGrid"); });
+
 };
 
-window.decodeEntities = (function () {
-    // this prevents any overhead from creating the object each time
-    var element = document.createElement('div');
-    function decodeHtmlEntities(str) {
-        if (str && typeof str === 'string') {
-            // strip script/html tags
-            str = str.replace(/<script[^>]*>([\S\s]*?)<\/script>/gmi, '');
-            str = str.replace(/<\/?\w(?:[^"'>]|"[^"]*"|'[^']*')*>/gmi, '');
-            element.innerHTML = str;
-            str = element.textContent;
-            element.textContent = '';
+window.showConfirmService = function (id, divScope, urlToGo, jqGridToUse) {
+    var scope = angular.element($(divScope)).scope();
+    scope.doConfirm({ id: id }, urlToGo).
+        then(function () { $(jqGridToUse).trigger("reloadGrid"); });
+};
+
+
+window.showConfirmCancelDocument = function (id, folio, divScope, urlToGo, jqGridToUse) {
+    var scope = angular.element($(divScope)).scope();
+    scope.doCancelDocument({ uuid: id }, urlToGo, folio).
+        then(function () { $(jqGridToUse).trigger("reloadGrid"); });
+};
+
+window.showObsolete = function (id, divScope, urlToGo, jqGridToUse) {
+    var scope = angular.element($(divScope)).scope();
+    scope.doObsolete({ id: id }, urlToGo).
+        then(function () { $(jqGridToUse).trigger("reloadGrid"); });
+};
+
+window.showModalFormDlg = function(divModalid, formId) {
+    var dlgCat = $(divModalid);
+    dlgCat.modal('show');
+
+    $.validator.unobtrusive.parse(formId);
+
+    $(divModalid).injector().invoke(function ($compile, $rootScope) {
+        $compile($(divModalid))($rootScope);
+        $rootScope.$apply();
+    });
+
+    var scope = angular.element(dlgCat).scope();
+    scope.setDlg(dlgCat);
+};
+
+window.goToUrlMvcUrl = function (url, params) {
+
+    for (var key in params) {
+        var param = params[key] || '';
+        url = url.replace(key, param);
+    }
+
+    try {
+        window.location.replace(url);
+    } catch (e) {
+        window.location = url;
+    }
+};
+
+window.sendPostAction = function(id, divScope, urlToGo, innerScp, showSuccess) {
+    var scope = angular.element($(divScope)).scope();
+    scope.sendPostAction({ id: id }, urlToGo, innerScp, showSuccess);
+};
+
+window.goToUrlMvcUrl = function (url, params) {
+    if (params !== undefined) {
+        for (var key in params) {
+            var param = params[key] || '';
+            url = url.replace(key, param);
         }
-        return str;
     }
-    return decodeHtmlEntities;
-})();
 
-
-window.splitToHtml = (function (str, separator, htmlIni, htmlEnd) {
-    var res = str.split(separator);
-    var ret = "";
-    for (var i = 0, len = res.length; i < len; i++) {
-        ret += htmlIni + res[i] + htmlEnd;
+    try {
+        window.location.replace(url);
+    } catch (e) {
+        window.location = url;
     }
-    return ret;
-});
+};
+

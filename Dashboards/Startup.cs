@@ -12,6 +12,7 @@ namespace Dashboards
     {
         public void Configuration(IAppBuilder app)
         {
+            AppInit.Start();
             app.Map("/signalr", map =>
             {
                 // Setup the CORS middleware to run before SignalR.

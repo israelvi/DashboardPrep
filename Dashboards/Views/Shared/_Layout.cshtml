@@ -4,43 +4,118 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Indicadores</title>
-    @Styles.Render("~/Content/css")
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/animate.css" rel="stylesheet" />
     @RenderSection("css", false)
+    <link href="~/Content/style.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
 
-
-    @Scripts.Render("~/bundles/modernizr")
-
+    <script src="~/Scripts/js/jquery-2.1.1.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="~/Scripts/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/angular.min.js"></script>
+    <script src="~/Scripts/app/main/electionApp.js"></script>
+    <script src="~/Scripts/jquery.signalR-2.2.0.min.js"></script>
+    <script src="/signalr/hubs"></script>
+    <script src="~/Scripts/common.js"></script>
+    <script src="~/Scripts/js/inspinia.js"></script>
+    <script src="~/Scripts/js/plugins/pace/pace.min.js"></script>
 </head>
-<body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Visión electoral", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Indicadores", "Index", "Dashboard")</li>
+<body ng-app="electionApp">
+    <div id="wrapper">
+        <nav class="navbar-default navbar-static-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav" id="side-menu">
+                    <li class="nav-header">
+                        <div class="dropdown profile-element">
+                            <span>
+                                <img alt="image" width="50" height="50" style="margin-left: 35px;" class="img-circle" src="~/Content/img/Logo.png" />
+                            </span>
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                <span class="clear">
+                                    <span class="block m-t-xs">
+                                        <strong class="font-bold"></strong>
+                                    </span>
+                                </span>
+                            </a>
+                        </div>
+                        <div class="logo-element">
+                            VE
+                        </div>
+                    </li>
+                    <li class="">
+                        <a href="#"><i class="fa fa-list-ul"></i> <span class="nav-label">Elecciones PREP</span> <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li class="active"><a href="@Url.Action("Delegate", "Dashboard", new { area = "" })"><i class="fa fa-user"></i> <span class="nav-label">Diputado Local</span> </a></li>
+                            <li class=""><a href="@Url.Action("Delegate", "Dashboard", new { area = "" })"><i class="fa fa-user"></i> <span class="nav-label">Diputado Federal</span> </a></li>
+                            <li class=""><a href="@Url.Action("Major", "Dashboard", new { area = "" })"><i class="fa fa-user"></i> <span class="nav-label">Presidente</span> </a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-calendar"></i> <span class="nav-label">Día D</span> <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li class="">
+                                <a href="@Url.Action("District", "Day", new { area = "" })">
+                                    <i class="fa fa-cloud-upload"></i> <span class="nav-label">Apertura</span>
+                                </a>
+                            </li>
+                            <li class="">
+                                <a href="@Url.Action("District", "Day", new { area = "" })">
+                                    <i class="fa fa-clock-o"></i> <span class="nav-label">Corte 11:00</span>
+                                </a>
+                            </li>
+                            <li class="">
+                                <a href="@Url.Action("District", "Day", new { area = "" })">
+                                    <i class="fa fa-clock-o"></i> <span class="nav-label">Corte 14:00</span>
+                                </a>
+                            </li>
+                            <li class="">
+                                <a href="@Url.Action("District", "Day", new { area = "" })">
+                                    <i class="fa fa-clock-o"></i> <span class="nav-label">Corte 17:00</span>
+                                </a>
+                            </li>
+                            <li class="">
+                                <a href="@Url.Action("Closure", "Day", new { area = "" })">
+                                    <i class="fa fa-cloud-download"></i> <span class="nav-label">Cierre</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
-                @*@Html.Partial("_LoginPartial")*@
+            </div>
+        </nav>
+        <div id="page-wrapper" class="white-bg">
+            <div class="row border-bottom">
+                <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+                    <div class="navbar-header">
+                        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+                    </div>
+                    <ul class="nav navbar-top-links navbar-right">
+                        <li>
+                            <span class="m-r-sm text-muted welcome-message">Visión Electoral <strong>PREP</strong> </span>
+                        </li>
+                    </ul>
+
+                </nav>
+            </div>
+            @RenderBody()
+            <hr />
+            <div id="dlgUpsert"></div>
+            <div class="footer fixed">
+                <div class="pull-right">
+                    PREP
+                </div>
+                <div>
+                    <strong>Copyright</strong> Visión Electoral &copy; 2015
+                </div>
             </div>
         </div>
     </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer class="element-right" style="margin-right: 20px;">
-            <p>&copy; @DateTime.Now.Year - Visión electoral</p>
-        </footer>
-    </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    <script src="~/Scripts/common.js"></script>
-    @RenderSection("scripts", required: false)
+    @RenderSection("scripts", false)
+
 </body>
 </html>
