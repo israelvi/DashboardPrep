@@ -25,6 +25,12 @@ namespace Dashboards.Repository.Entities
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Elecciones> Elecciones { get; set; }
+        public virtual DbSet<Region> Region { get; set; }
+        public virtual DbSet<RegionCoordinador> RegionCoordinador { get; set; }
+        public virtual DbSet<RegionUbicacion> RegionUbicacion { get; set; }
+        public virtual DbSet<Tc_Incidentes> Tc_Incidentes { get; set; }
+        public virtual DbSet<V_GeneralNivelDistrito> V_GeneralNivelDistrito { get; set; }
+        public virtual DbSet<V_GeneralNivelGlobal> V_GeneralNivelGlobal { get; set; }
+        public virtual DbSet<V_GeneralNivelRegion> V_GeneralNivelRegion { get; set; }
     }
 }

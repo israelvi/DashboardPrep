@@ -190,11 +190,17 @@
     <Compile Include="Controllers\DayController.cs" />
     <Compile Include="Controllers\ElectionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\JournalController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\RegionController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Hubs\BaseHub.cs" />
+    <Compile Include="Models\Dto\CatalogsDistrictRes.cs" />
+    <Compile Include="Hubs\ElectionDayHub.cs" />
+    <Compile Include="Infrastructure\Extensions\DynamicExtensions.cs" />
+    <Compile Include="Models\Dto\ElectionDayParams.cs" />
     <Compile Include="Hubs\PrepHub.cs" />
     <Compile Include="Hubs\GlobalHubContext.cs" />
     <Compile Include="Infrastructure\Connection\ConnectionMapping.cs" />
@@ -212,26 +218,50 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\BaseOneRepository.cs" />
     <Compile Include="Models\EleccionesDto.cs" />
-    <Compile Include="Repository\Entities\DbEntity.Context.cs">
+    <Compile Include="Models\Dto\ElectionResGeneral.cs" />
+    <Compile Include="Repository\Entities\DbEntities.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DbEntity.Context.tt</DependentUpon>
+      <DependentUpon>DbEntities.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repository\Entities\DbEntity.cs">
+    <Compile Include="Repository\Entities\DbEntities.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DbEntity.tt</DependentUpon>
+      <DependentUpon>DbEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repository\Entities\DbEntity.Designer.cs">
+    <Compile Include="Repository\Entities\DbEntities.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DbEntity.edmx</DependentUpon>
+      <DependentUpon>DbEntities.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Repository\Entities\Elecciones.cs">
-      <DependentUpon>DbEntity.tt</DependentUpon>
+    <Compile Include="Repository\Entities\Region.cs">
+      <DependentUpon>DbEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repository\Entities\RegionCoordinador.cs">
+      <DependentUpon>DbEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\Entities\RegionUbicacion.cs">
+      <DependentUpon>DbEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\Entities\Tc_Incidentes.cs">
+      <DependentUpon>DbEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\Entities\V_GeneralNivelDistrito.cs">
+      <DependentUpon>DbEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\Entities\V_GeneralNivelGlobal.cs">
+      <DependentUpon>DbEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\Entities\V_GeneralNivelRegion.cs">
+      <DependentUpon>DbEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\IElectionDayRepository.cs" />
     <Compile Include="Repository\IPrepRepository.cs" />
+    <Compile Include="Repository\ElectionDayRepository.cs" />
+    <Compile Include="Models\ItemModel.cs" />
     <Compile Include="Repository\PrepRepository.cs" />
+    <Compile Include="Service\ElectionDayService.cs" />
+    <Compile Include="Service\IElectionDayService.cs" />
     <Compile Include="Service\IPrepService.cs" />
     <Compile Include="Service\PrepService.cs" />
     <Compile Include="Startup.cs" />
@@ -506,23 +536,6 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\fonts\fontawesome-webfont.woff" />
-    <EntityDeploy Include="Repository\Entities\DbEntity.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>DbEntity.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Repository\Entities\DbEntity.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DbEntity.edmx</DependentUpon>
-      <LastGenOutput>DbEntity.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Repository\Entities\DbEntity.edmx.diagram">
-      <DependentUpon>DbEntity.edmx</DependentUpon>
-    </Content>
-    <Content Include="Repository\Entities\DbEntity.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DbEntity.edmx</DependentUpon>
-      <LastGenOutput>DbEntity.cs</LastGenOutput>
-    </Content>
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\font-awesome\fonts\fontawesome-webfont.eot" />
@@ -575,6 +588,23 @@
     <Content Include="Content\plugins\bootstrap-rtl\bootstrap-rtl.css.map" />
     <Content Include="Scripts\angular.min.js.map" />
     <Content Include="Views\Day\FirstClosure.cshtml" />
+    <EntityDeploy Include="Repository\Entities\DbEntities.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>DbEntities.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Repository\Entities\DbEntities.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DbEntities.edmx</DependentUpon>
+      <LastGenOutput>DbEntities.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Repository\Entities\DbEntities.edmx.diagram">
+      <DependentUpon>DbEntities.edmx</DependentUpon>
+    </Content>
+    <Content Include="Repository\Entities\DbEntities.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DbEntities.edmx</DependentUpon>
+      <LastGenOutput>DbEntities.cs</LastGenOutput>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\common.js" />
     <Content Include="Scripts\hc\adapters\standalone-framework.js" />
@@ -1086,16 +1116,19 @@
     <Content Include="Views\Day\SecondClosure.cshtml" />
     <Content Include="Views\Day\ThirdClosure.cshtml" />
     <Content Include="Views\Day\District.cshtml" />
-    <Content Include="Views\Region\Detail.cshtml" />
+    <Content Include="Views\Journal\Detail.cshtml" />
     <Content Include="Views\Day\Region.cshtml" />
     <Content Include="Views\Election\Global.cshtml" />
     <Content Include="Views\Election\District.cshtml" />
     <Content Include="Views\Election\Region.cshtml" />
+    <Content Include="Views\Journal\Index.cshtml" />
+    <Content Include="Views\Journal\Region.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Scripts\app\drct\" />
     <Folder Include="Scripts\app\svc\" />
+    <Folder Include="Views\Region\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -12,17 +12,11 @@ namespace Dashboards.Repository.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class Elecciones
+    public partial class RegionCoordinador
     {
-        public int Id { get; set; }
-        public int IdTipoEleccion { get; set; }
-        public int Pan { get; set; }
-        public int Pt { get; set; }
-        public int Pri { get; set; }
-        public int Pvem { get; set; }
-        public int Pna { get; set; }
-        public int Prd { get; set; }
-        public int Morena { get; set; }
-        public int Otros { get; set; }
+        public int IdRegionCoordinador { get; set; }
+        public int IdRegion { get; set; }
+        public string Coordinador { get; set; }
+        public string Telefonos { get; set; }
     }
 }

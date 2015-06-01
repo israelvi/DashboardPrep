@@ -1,10 +1,22 @@
 ﻿<div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-xs-12 element-center">
-        <h2><b>Apertura de casillas Distrito @ViewBag.District </b> | 2015 </h2>
+        <h2><b>Jornada Electoral Distrito @ViewBag.District </b> | 2015 </h2>
     </div>
 </div>
-
-<div class="ibox" ng-controller="regionController" ng-init="corte=@ViewBag.Corte; idDistrict=@ViewBag.District;" ng-cloak>
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="space-10"></div>
+    <div class="col-xs-12">
+        <ol class="breadcrumb">
+            <li>
+                <a href="@Url.Action("Index", "Journal", new { area = "" })">Jornada Electoral</a>
+            </li>
+            <li class="active">
+                <strong>Regiones</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+<div class="ibox" ng-controller="regionController" ng-init="idDistrict=@ViewBag.District;" ng-cloak>
     <div class="ibox-title">
         <h5>
             Reporte inicial para la apertura de casillas del Distrito @ViewBag.District
@@ -20,7 +32,7 @@
                     <tr ng-repeat="r in lstResults | orderBy:'IdRegion'">
                         <td>
                             <a class="label label-warning font-sz-m"
-                               href="@Url.Action("Detail", "Region")?corte=@ViewBag.Corte&district=@ViewBag.District&region={{r.IdRegion}}">
+                               href="@Url.Action("Detail", "Journal")?district=@ViewBag.District&region={{r.IdRegion}}">
                                 {{firstCatalog(catalogs.Regions, r.IdRegion, 'ValOne')}}
                             </a>
                             <div class="space-10"></div>
@@ -80,7 +92,7 @@
                         <td class="project-title">
                             <button class="btn btn-warning btn-circle btn-xs" type="button">
                                 <i class="fa fa-paw"></i>
-                            </button>&nbsp;&nbsp;<a href="">Desayunos / Comidas</a>
+                            </button>&nbsp;&nbsp;<a href="">Desayunos</a>
                             <div class="space-10"></div>
                             <button class="btn btn-success btn-s-xs" type="button">{{r.DesayunoConteo}} &nbsp;<i class="fa fa-thumbs-up"></i>&nbsp;</button><small>&nbsp;&nbsp;Con desayuno</small>&nbsp;&nbsp;&nbsp;&nbsp;
                             <button class="btn btn-danger btn-s-xs" type="button">{{r.DesayunoCasillas - r.DesayunoConteo}} &nbsp;<i class="fa fa-thumbs-down"></i>&nbsp;</button><small>&nbsp;&nbsp;Sin desayuno</small>
@@ -88,7 +100,20 @@
                             <div class="progress progress-mini">
                                 <div style="width: {{(r.DesayunoCasillas/r.TotalCasillas*100)|number:0}}%;" c class="progress-bar progress-bar-success"></div>
                             </div>
-                            <small class="element-center">Casillas completadas: {{(r.DesayunoCasillas/r.TotalCasillas*100)|number:0}} % &nbsp;&nbsp; ({{r.DesayunoCasillas}} / {{r.TotalCasillas}})</small>
+                            <small class="element-center">Casillas: {{(r.DesayunoCasillas/r.TotalCasillas*100)|number:0}} % &nbsp;&nbsp; ({{r.DesayunoCasillas}} / {{r.TotalCasillas}})</small>
+                        </td>
+                        <td class="project-title">
+                            <button class="btn btn-warning btn-circle btn-xs" type="button">
+                                <i class="fa fa-gift"></i>
+                            </button>&nbsp;&nbsp;<a href="">Comidas</a>
+                            <div class="space-10"></div>
+                            <button class="btn btn-success btn-s-xs" type="button">{{r.DesayunoConteo}} &nbsp;<i class="fa fa-thumbs-up"></i>&nbsp;</button><small>&nbsp;&nbsp;Con comida</small>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button class="btn btn-danger btn-s-xs" type="button">{{r.DesayunoCasillas - r.DesayunoConteo}} &nbsp;<i class="fa fa-thumbs-down"></i>&nbsp;</button><small>&nbsp;&nbsp;Sin comida</small>
+                            <br />
+                            <div class="progress progress-mini">
+                                <div style="width: {{(r.DesayunoCasillas/r.TotalCasillas*100)|number:0}}%;" c class="progress-bar progress-bar-success"></div>
+                            </div>
+                            <small class="element-center">Casillas: {{(r.DesayunoCasillas/r.TotalCasillas*100)|number:0}} % &nbsp;&nbsp; ({{r.DesayunoCasillas}} / {{r.TotalCasillas}})</small>
                         </td>
                     </tr>
                 </tbody>

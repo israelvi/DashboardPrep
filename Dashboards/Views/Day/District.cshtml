@@ -4,13 +4,13 @@
     </div>
 </div>
 
-<div class="ibox" ng-controller="districtController">
+<div class="ibox" ng-controller="districtController" ng-init="corte=@ViewBag.Corte;" ng-cloak>
     <div class="ibox-title">
         <h5>
             Reporte inicial para la apertura de casillas
             <br />
             <br />
-            <select class="form-control m-b" ng-options="item as item.value for item in lstDistricts" ng-model="district"></select>
+            <select class="form-control m-b" ng-options="item as item.value for item in lstDistricts" ng-model="district" ng-change="onDistrictChange()"></select>
         </h5>
         <div class="ibox-tools">
             <span class="label label-success"><h4>Distritos</h4></span>
@@ -20,9 +20,9 @@
         <div class="project-list">
             <table class="table table-hover">
                 <tbody>
-                    <tr>
+                    <tr ng-repeat="r in lstResults">
                         <td class="element-center">
-                            <a class="label label-warning font-sz-m" href="@Url.Action("Region", "Day")">Distrito 18</a>
+                            <a class="label label-warning font-sz-m" href="@Url.Action("Region", "Day")?corte=@ViewBag.Corte&district={{r.DttoElec}}">Distrito {{r.DttoElec}}</a>
                         </td>
                         <td class="project-title">
                             <button class="btn btn-info btn-circle btn-xs" type="button">
@@ -30,13 +30,13 @@
                             </button>&nbsp;&nbsp;
                             <a href="">Asistencia</a>
                             <div class="space-10"></div>
-                            <button class="btn btn-success btn-s-xs" type="button">420 &nbsp;<i class="fa fa-thumbs-up"></i>&nbsp;</button><small>&nbsp;&nbsp;Con asistencia</small>&nbsp;&nbsp;&nbsp;&nbsp;
-                            <button class="btn btn-danger btn-s-xs" type="button">190 &nbsp;<i class="fa fa-thumbs-down"></i>&nbsp;</button><small>&nbsp;&nbsp;Sin asistencia</small>
+                            <button class="btn btn-success btn-s-xs" type="button">{{r.AsistenciaConteo}} &nbsp;<i class="fa fa-thumbs-up"></i>&nbsp;</button><small>&nbsp;&nbsp;Con asistencia</small>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button class="btn btn-danger btn-s-xs" type="button">{{r.AsistenciaCasillas - r.AsistenciaConteo}} &nbsp;<i class="fa fa-thumbs-down"></i>&nbsp;</button><small>&nbsp;&nbsp;Sin asistencia</small>
                             <br />
                             <div class="progress progress-mini">
-                                <div style="width: 70%;" class="progress-bar progress-bar-success"></div>
+                                <div style="width: {{(r.AsistenciaCasillas/r.TotalCasillas*100)|number:0}}%;" class="progress-bar progress-bar-success"></div>
                             </div>
-                            <small class="element-center">Casillas completadas: 70%</small>
+                            <small class="element-center">Casillas completadas: {{(r.AsistenciaCasillas/r.TotalCasillas*100)|number:0}} % &nbsp;&nbsp; ({{r.AsistenciaCasillas}} / {{r.TotalCasillas}})</small>
                         </td>
                         <td class="project-title">
                             <button class="btn btn-success btn-circle btn-xs" type="button">
@@ -44,98 +44,39 @@
                             </button>&nbsp;&nbsp;
                             <a href="">Instalación</a>
                             <div class="space-10"></div>
-                            <button class="btn btn-success btn-s-xs" type="button">320 &nbsp;<i class="fa fa-thumbs-up"></i>&nbsp;</button><small>&nbsp;&nbsp;Instaladas</small>&nbsp;&nbsp;&nbsp;&nbsp;
-                            <button class="btn btn-danger btn-s-xs" type="button">120 &nbsp;<i class="fa fa-thumbs-down"></i>&nbsp;</button><small>&nbsp;&nbsp;No instaladas</small>
+                            <button class="btn btn-success btn-s-xs" type="button">{{r.InstalacionConteo}} &nbsp;<i class="fa fa-thumbs-up"></i>&nbsp;</button><small>&nbsp;&nbsp;Instaladas</small>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button class="btn btn-danger btn-s-xs" type="button">{{r.InstalacionCasillas - r.InstalacionConteo}} &nbsp;<i class="fa fa-thumbs-down"></i>&nbsp;</button><small>&nbsp;&nbsp;No instaladas</small>
                             <br />
                             <div class="progress progress-mini">
-                                <div style="width: 48%;" class="progress-bar progress-bar-success"></div>
+                                <div style="width: {{(r.InstalacionCasillas/r.TotalCasillas*100)|number:0}}%;" class="progress-bar progress-bar-success"></div>
                             </div>
-                            <small class="element-center">Casillas completadas: 48%</small>
+                            <small class="element-center">Casillas completadas: {{(r.InstalacionCasillas/r.TotalCasillas*100)|number:0}} % &nbsp;&nbsp; ({{r.InstalacionCasillas}} / {{r.TotalCasillas}})</small>
                         </td>
                         <td class="project-title">
                             <button class="btn btn-danger btn-circle btn-xs" type="button">
                                 <i class="fa fa-bolt"></i>
                             </button>&nbsp;&nbsp;<a href="">Incidentes</a>
                             <div class="space-10"></div>
-                            <button class="btn btn-success btn-s-xs" type="button">600 &nbsp;<i class="fa fa-thumbs-up"></i>&nbsp;</button><small>&nbsp;&nbsp;Con incidentes</small>&nbsp;&nbsp;&nbsp;&nbsp;
-                            <button class="btn btn-danger btn-s-xs" type="button">120 &nbsp;<i class="fa fa-thumbs-down"></i>&nbsp;</button><small>&nbsp;&nbsp;Sin incidentes</small>
+                            <button class="btn btn-success btn-s-xs" type="button">{{r.IncidentesCasillas - r.IncidentesConteo}} &nbsp;<i class="fa fa-thumbs-down"></i>&nbsp;</button><small>&nbsp;&nbsp;Sin incidentes</small>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button class="btn btn-danger btn-s-xs" type="button">{{r.IncidentesConteo}} &nbsp;<i class="fa fa-thumbs-up"></i>&nbsp;</button><small>&nbsp;&nbsp;Con incidentes</small>
                             <br />
                             <div class="progress progress-mini">
-                                <div style="width: 80%;" class="progress-bar progress-bar-success"></div>
+                                <div style="width: {{(r.IncidentesCasillas/r.TotalCasillas*100)|number:0}}%;" class="p progress-bar progress-bar-success"></div>
                             </div>
-                            <small class="element-center">Casillas completadas: 80%</small>
+                            <small class="element-center">Casillas completadas: {{(r.IncidentesCasillas/r.TotalCasillas*100)|number:0}} % &nbsp;&nbsp; ({{r.IncidentesCasillas}} / {{r.TotalCasillas}})</small>
                         </td>
                         <td class="project-title">
                             <button class="btn btn-warning btn-circle btn-xs" type="button">
                                 <i class="fa fa-paw"></i>
                             </button>&nbsp;&nbsp;<a href="">Desayunos / Comidas</a>
                             <div class="space-10"></div>
-                            <button class="btn btn-success btn-s-xs" type="button">200 &nbsp;<i class="fa fa-thumbs-up"></i>&nbsp;</button><small>&nbsp;&nbsp;Con desayuno</small>&nbsp;&nbsp;&nbsp;&nbsp;
-                            <button class="btn btn-danger btn-s-xs" type="button">120 &nbsp;<i class="fa fa-thumbs-down"></i>&nbsp;</button><small>&nbsp;&nbsp;Sin desayuno</small>
+                            <button class="btn btn-success btn-s-xs" type="button">{{r.DesayunoConteo}} &nbsp;<i class="fa fa-thumbs-up"></i>&nbsp;</button><small>&nbsp;&nbsp;Con desayuno</small>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button class="btn btn-danger btn-s-xs" type="button">{{r.DesayunoCasillas - r.DesayunoConteo}} &nbsp;<i class="fa fa-thumbs-down"></i>&nbsp;</button><small>&nbsp;&nbsp;Sin desayuno</small>
                             <br />
                             <div class="progress progress-mini">
-                                <div style="width: 40%;" class="progress-bar progress-bar-success"></div>
+                                <div style="width: {{(r.DesayunoCasillas/r.TotalCasillas*100)|number:0}}%;" c class="progress-bar progress-bar-success"></div>
                             </div>
-                            <small class="element-center">Casillas completadas: 40%</small>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="element-center">
-                            <a class="label label-warning font-sz-m" href="@Url.Action("Detail", "Region")">Distrito 37</a>
-                        </td>
-                        <td class="project-title">
-                            <button class="btn btn-info btn-circle btn-xs" type="button">
-                                <i class="fa fa-users"></i>
-                            </button>&nbsp;&nbsp;
-                            <a href="">Asistencia</a>
-                            <div class="space-10"></div>
-                            <button class="btn btn-success btn-s-xs" type="button">420 &nbsp;<i class="fa fa-thumbs-up"></i>&nbsp;</button><small>&nbsp;&nbsp;Con asistencia</small>&nbsp;&nbsp;&nbsp;&nbsp;
-                            <button class="btn btn-danger btn-s-xs" type="button">190 &nbsp;<i class="fa fa-thumbs-down"></i>&nbsp;</button><small>&nbsp;&nbsp;Sin asistencia</small>
-                            <br />
-                            <div class="progress progress-mini">
-                                <div style="width: 70%;" class="progress-bar progress-bar-success"></div>
-                            </div>
-                            <small class="element-center">Casillas completadas: 70%</small>
-                        </td>
-                        <td class="project-title">
-                            <button class="btn btn-success btn-circle btn-xs" type="button">
-                                <i class="fa fa-power-off"></i>
-                            </button>&nbsp;&nbsp;
-                            <a href="">Instalación</a>
-                            <div class="space-10"></div>
-                            <button class="btn btn-success btn-s-xs" type="button">320 &nbsp;<i class="fa fa-thumbs-up"></i>&nbsp;</button><small>&nbsp;&nbsp;Instaladas</small>&nbsp;&nbsp;&nbsp;&nbsp;
-                            <button class="btn btn-danger btn-s-xs" type="button">120 &nbsp;<i class="fa fa-thumbs-down"></i>&nbsp;</button><small>&nbsp;&nbsp;No instaladas</small>
-                            <br />
-                            <div class="progress progress-mini">
-                                <div style="width: 48%;" class="progress-bar progress-bar-success"></div>
-                            </div>
-                            <small class="element-center">Casillas completadas: 48%</small>
-                        </td>
-                        <td class="project-title">
-                            <button class="btn btn-danger btn-circle btn-xs" type="button">
-                                <i class="fa fa-bolt"></i>
-                            </button>&nbsp;&nbsp;<a href="">Incidentes</a>
-                            <div class="space-10"></div>
-                            <button class="btn btn-success btn-s-xs" type="button">600 &nbsp;<i class="fa fa-thumbs-up"></i>&nbsp;</button><small>&nbsp;&nbsp;Con incidentes</small>&nbsp;&nbsp;&nbsp;&nbsp;
-                            <button class="btn btn-danger btn-s-xs" type="button">120 &nbsp;<i class="fa fa-thumbs-down"></i>&nbsp;</button><small>&nbsp;&nbsp;Sin incidentes</small>
-                            <br />
-                            <div class="progress progress-mini">
-                                <div style="width: 80%;" class="progress-bar progress-bar-success"></div>
-                            </div>
-                            <small class="element-center">Casillas completadas: 80%</small>
-                        </td>
-                        <td class="project-title">
-                            <button class="btn btn-warning btn-circle btn-xs" type="button">
-                                <i class="fa fa-paw"></i>
-                            </button>&nbsp;&nbsp;<a href="">Desayunos / Comidas</a>
-                            <div class="space-10"></div>
-                            <button class="btn btn-success btn-s-xs" type="button">200 &nbsp;<i class="fa fa-thumbs-up"></i>&nbsp;</button><small>&nbsp;&nbsp;Con desayuno</small>&nbsp;&nbsp;&nbsp;&nbsp;
-                            <button class="btn btn-danger btn-s-xs" type="button">120 &nbsp;<i class="fa fa-thumbs-down"></i>&nbsp;</button><small>&nbsp;&nbsp;Sin desayuno</small>
-                            <br />
-                            <div class="progress progress-mini">
-                                <div style="width: 40%;" class="progress-bar progress-bar-success"></div>
-                            </div>
-                            <small class="element-center">Casillas completadas: 40%</small>
+                            <small class="element-center">Casillas completadas: {{(r.DesayunoCasillas/r.TotalCasillas*100)|number:0}} % &nbsp;&nbsp; ({{r.DesayunoCasillas}} / {{r.TotalCasillas}})</small>
                         </td>
                     </tr>
                 </tbody>
@@ -147,5 +88,4 @@
 @section scripts
 {
     <script src="~/Scripts/app/ctrl/districtCtrl.js"></script>
-    <script src="~/Scripts/app/ctrl/regionCtrl.js"></script>
 }

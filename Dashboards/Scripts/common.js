@@ -73,3 +73,28 @@ window.goToUrlMvcUrl = function (url, params) {
     }
 };
 
+window.firstCatalog = function (catalog, id, param) {
+    for (var i = 0, len = catalog.length; i < len; i++) {
+        var item = catalog[i];
+        if (item.Id == id) {
+            if (param === undefined) {
+                return item.ValOne;
+            }
+            return item[param];
+        }
+    }
+    return "ND";
+};
+
+
+window.fullCatalog = function (catalog, id) {
+    var lstData = [];
+    for (var i = 0, len = catalog.length; i < len; i++) {
+        var item = catalog[i];
+        if (item.Id == id) {
+            lstData.push(item);
+        }
+    }
+    return lstData;
+};
+

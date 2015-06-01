@@ -55,30 +55,28 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-calendar"></i> <span class="nav-label">Día D</span> <span class="fa arrow"></span></a>
+                        <a href="@Url.Action("Index", "Journal", new { area = "" })"><i class="fa fa-dashboard"></i> Jornada Electoral</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-calendar"></i> <span class="nav-label">Afluencia</span> <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li class="">
-                                <a href="@Url.Action("District", "Day", new { area = "" })">
-                                    <i class="fa fa-cloud-upload"></i> <span class="nav-label">Apertura</span>
-                                </a>
-                            </li>
-                            <li class="">
-                                <a href="@Url.Action("District", "Day", new { area = "" })">
+                                <a href="@Url.Action("District", "Day", new { area = "" })?corte=2">
                                     <i class="fa fa-clock-o"></i> <span class="nav-label">Corte 11:00</span>
                                 </a>
                             </li>
                             <li class="">
-                                <a href="@Url.Action("District", "Day", new { area = "" })">
+                                <a href="@Url.Action("District", "Day", new { area = "" })?corte=3">
                                     <i class="fa fa-clock-o"></i> <span class="nav-label">Corte 14:00</span>
                                 </a>
                             </li>
                             <li class="">
-                                <a href="@Url.Action("District", "Day", new { area = "" })">
+                                <a href="@Url.Action("District", "Day", new { area = "" })?corte=4">
                                     <i class="fa fa-clock-o"></i> <span class="nav-label">Corte 17:00</span>
                                 </a>
                             </li>
                             <li class="">
-                                <a href="@Url.Action("Closure", "Day", new { area = "" })">
+                                <a href="@Url.Action("Closure", "Day", new { area = "" })?corte=5">
                                     <i class="fa fa-cloud-download"></i> <span class="nav-label">Cierre</span>
                                 </a>
                             </li>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="adca61472f834fa8aceee43a7ff0c09b" Name="Diagram1">
+        <EntityTypeShape EntityType="DbModel.Region" Width="1.5" PointX="3.75" PointY="0.75" />
+        <EntityTypeShape EntityType="DbModel.RegionCoordinador" Width="1.5" PointX="3.75" PointY="3.75" />
+        <EntityTypeShape EntityType="DbModel.RegionUbicacion" Width="1.5" PointX="0.75" PointY="4.75" />
+        <EntityTypeShape EntityType="DbModel.Tc_Incidentes" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="DbModel.V_GeneralNivelDistrito" Width="1.5" PointX="6.75" PointY="0.75" />
+        <EntityTypeShape EntityType="DbModel.V_GeneralNivelGlobal" Width="1.5" PointX="6.75" PointY="5.75" />
+        <EntityTypeShape EntityType="DbModel.V_GeneralNivelRegion" Width="1.5" PointX="3.375" PointY="6.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

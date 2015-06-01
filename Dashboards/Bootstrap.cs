@@ -13,7 +13,12 @@ namespace Dashboards
             {
                 builder.RegisterType<PrepRepository>().As<IPrepRepository>();
                 builder.RegisterType<PrepService>().As<IPrepService>();
+
+                builder.RegisterType<ElectionDayRepository>().As<IElectionDayRepository>();
+                builder.RegisterType<ElectionDayService>().As<IElectionDayService>();
+
                 builder.RegisterType<PrepHub>().SingleInstance();
+                builder.RegisterType<ElectionDayHub>().SingleInstance();
             }
         }
     }

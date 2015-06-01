@@ -1,0 +1,433 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Region">
+          <Key>
+            <PropertyRef Name="IdRegion" />
+          </Key>
+          <Property Name="IdRegion" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RegionCoordinador">
+          <Key>
+            <PropertyRef Name="IdRegionCoordinador" />
+          </Key>
+          <Property Name="IdRegionCoordinador" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdRegion" Type="int" Nullable="false" />
+          <Property Name="Coordinador" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Telefonos" Type="nvarchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RegionUbicacion">
+          <Key>
+            <PropertyRef Name="IdRegionUbicacion" />
+          </Key>
+          <Property Name="IdRegionUbicacion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdRegion" Type="int" Nullable="false" />
+          <Property Name="Ubicacion" Type="nvarchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'DBPruebasEleccion2015.dbo.Tc_Incidentes' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Tc_Incidentes">
+          <Key>
+            <PropertyRef Name="Inc_Id" />
+          </Key>
+          <Property Name="Inc_Id" Type="int" Nullable="false" />
+          <Property Name="Inc_Num" Type="nchar" MaxLength="8" />
+          <Property Name="Inc_Concepto" Type="nchar" MaxLength="300" />
+          <Property Name="Inc_Ref" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'DBPruebasEleccion2015.dbo.V_GeneralNivelDistrito' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="V_GeneralNivelDistrito">
+          <Key>
+            <PropertyRef Name="D_DttoElec" />
+            <PropertyRef Name="IdRegion" />
+          </Key>
+          <Property Name="D_DttoElec" Type="float" Nullable="false" />
+          <Property Name="D_TipoEleccion" Type="char" MaxLength="1" />
+          <Property Name="IdRegion" Type="int" Nullable="false" />
+          <Property Name="AsistenciaConteo" Type="int" />
+          <Property Name="AsistenciaCasillas" Type="int" />
+          <Property Name="InstalacionConteo" Type="int" />
+          <Property Name="InstalacionCasillas" Type="int" />
+          <Property Name="IncidentesConteo" Type="int" />
+          <Property Name="IncidentesCasillas" Type="int" />
+          <Property Name="DesayunoConteo" Type="int" />
+          <Property Name="DesayunoCasillas" Type="int" />
+          <Property Name="ComidaConteo" Type="int" />
+          <Property Name="ComidaCasillas" Type="int" />
+          <Property Name="TotalCasillas" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'DBPruebasEleccion2015.dbo.V_GeneralNivelGlobal' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="V_GeneralNivelGlobal">
+          <Key>
+            <PropertyRef Name="D_DttoElec" />
+          </Key>
+          <Property Name="D_DttoElec" Type="float" Nullable="false" />
+          <Property Name="D_TipoEleccion" Type="char" MaxLength="1" />
+          <Property Name="AsistenciaConteo" Type="int" />
+          <Property Name="AsistenciaCasillas" Type="int" />
+          <Property Name="InstalacionConteo" Type="int" />
+          <Property Name="InstalacionCasillas" Type="int" />
+          <Property Name="IncidentesConteo" Type="int" />
+          <Property Name="IncidentesCasillas" Type="int" />
+          <Property Name="DesayunoConteo" Type="int" />
+          <Property Name="DesayunoCasillas" Type="int" />
+          <Property Name="ComidaConteo" Type="int" />
+          <Property Name="ComidaCasillas" Type="int" />
+          <Property Name="TotalCasillas" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'DBPruebasEleccion2015.dbo.V_GeneralNivelRegion' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="V_GeneralNivelRegion">
+          <Key>
+            <PropertyRef Name="D_DttoElec" />
+            <PropertyRef Name="IdRegion" />
+            <PropertyRef Name="S_IdSeccion" />
+            <PropertyRef Name="AsistenciaEstatus" />
+            <PropertyRef Name="NotaAsistencia" />
+            <PropertyRef Name="InstalacionEstatus" />
+            <PropertyRef Name="NotaInstalacion" />
+            <PropertyRef Name="IncidentesEstatus" />
+            <PropertyRef Name="NotaIncidente" />
+            <PropertyRef Name="DesayunoEstatus" />
+            <PropertyRef Name="NotaDesayuno" />
+            <PropertyRef Name="ComidaEstatus" />
+            <PropertyRef Name="NotaComida" />
+            <PropertyRef Name="CodigoIncidente" />
+          </Key>
+          <Property Name="D_DttoElec" Type="float" Nullable="false" />
+          <Property Name="IdRegion" Type="int" Nullable="false" />
+          <Property Name="S_IdSeccion" Type="float" Nullable="false" />
+          <Property Name="TC_Descripcion" Type="varchar" MaxLength="100" />
+          <Property Name="AsistenciaEstatus" Type="int" Nullable="false" />
+          <Property Name="NotaAsistencia" Type="text" Nullable="false" />
+          <Property Name="InstalacionEstatus" Type="int" Nullable="false" />
+          <Property Name="NotaInstalacion" Type="text" Nullable="false" />
+          <Property Name="IncidentesEstatus" Type="int" Nullable="false" />
+          <Property Name="NotaIncidente" Type="text" Nullable="false" />
+          <Property Name="DesayunoEstatus" Type="int" Nullable="false" />
+          <Property Name="NotaDesayuno" Type="text" Nullable="false" />
+          <Property Name="ComidaEstatus" Type="int" Nullable="false" />
+          <Property Name="NotaComida" Type="text" Nullable="false" />
+          <Property Name="CodigoIncidente" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="DbModelStoreContainer">
+          <EntitySet Name="Region" EntityType="Self.Region" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RegionCoordinador" EntityType="Self.RegionCoordinador" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RegionUbicacion" EntityType="Self.RegionUbicacion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tc_Incidentes" EntityType="Self.Tc_Incidentes" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Tc_Incidentes].[Inc_Id] AS [Inc_Id], 
+    [Tc_Incidentes].[Inc_Num] AS [Inc_Num], 
+    [Tc_Incidentes].[Inc_Concepto] AS [Inc_Concepto], 
+    [Tc_Incidentes].[Inc_Ref] AS [Inc_Ref]
+    FROM [dbo].[Tc_Incidentes] AS [Tc_Incidentes]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="V_GeneralNivelDistrito" EntityType="Self.V_GeneralNivelDistrito" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [V_GeneralNivelDistrito].[D_DttoElec] AS [D_DttoElec], 
+    [V_GeneralNivelDistrito].[D_TipoEleccion] AS [D_TipoEleccion], 
+    [V_GeneralNivelDistrito].[IdRegion] AS [IdRegion], 
+    [V_GeneralNivelDistrito].[AsistenciaConteo] AS [AsistenciaConteo], 
+    [V_GeneralNivelDistrito].[AsistenciaCasillas] AS [AsistenciaCasillas], 
+    [V_GeneralNivelDistrito].[InstalacionConteo] AS [InstalacionConteo], 
+    [V_GeneralNivelDistrito].[InstalacionCasillas] AS [InstalacionCasillas], 
+    [V_GeneralNivelDistrito].[IncidentesConteo] AS [IncidentesConteo], 
+    [V_GeneralNivelDistrito].[IncidentesCasillas] AS [IncidentesCasillas], 
+    [V_GeneralNivelDistrito].[DesayunoConteo] AS [DesayunoConteo], 
+    [V_GeneralNivelDistrito].[DesayunoCasillas] AS [DesayunoCasillas], 
+    [V_GeneralNivelDistrito].[ComidaConteo] AS [ComidaConteo], 
+    [V_GeneralNivelDistrito].[ComidaCasillas] AS [ComidaCasillas], 
+    [V_GeneralNivelDistrito].[TotalCasillas] AS [TotalCasillas]
+    FROM [dbo].[V_GeneralNivelDistrito] AS [V_GeneralNivelDistrito]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="V_GeneralNivelGlobal" EntityType="Self.V_GeneralNivelGlobal" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [V_GeneralNivelGlobal].[D_DttoElec] AS [D_DttoElec], 
+    [V_GeneralNivelGlobal].[D_TipoEleccion] AS [D_TipoEleccion], 
+    [V_GeneralNivelGlobal].[AsistenciaConteo] AS [AsistenciaConteo], 
+    [V_GeneralNivelGlobal].[AsistenciaCasillas] AS [AsistenciaCasillas], 
+    [V_GeneralNivelGlobal].[InstalacionConteo] AS [InstalacionConteo], 
+    [V_GeneralNivelGlobal].[InstalacionCasillas] AS [InstalacionCasillas], 
+    [V_GeneralNivelGlobal].[IncidentesConteo] AS [IncidentesConteo], 
+    [V_GeneralNivelGlobal].[IncidentesCasillas] AS [IncidentesCasillas], 
+    [V_GeneralNivelGlobal].[DesayunoConteo] AS [DesayunoConteo], 
+    [V_GeneralNivelGlobal].[DesayunoCasillas] AS [DesayunoCasillas], 
+    [V_GeneralNivelGlobal].[ComidaConteo] AS [ComidaConteo], 
+    [V_GeneralNivelGlobal].[ComidaCasillas] AS [ComidaCasillas], 
+    [V_GeneralNivelGlobal].[TotalCasillas] AS [TotalCasillas]
+    FROM [dbo].[V_GeneralNivelGlobal] AS [V_GeneralNivelGlobal]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="V_GeneralNivelRegion" EntityType="Self.V_GeneralNivelRegion" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [V_GeneralNivelRegion].[D_DttoElec] AS [D_DttoElec], 
+    [V_GeneralNivelRegion].[IdRegion] AS [IdRegion], 
+    [V_GeneralNivelRegion].[S_IdSeccion] AS [S_IdSeccion], 
+    [V_GeneralNivelRegion].[TC_Descripcion] AS [TC_Descripcion], 
+    [V_GeneralNivelRegion].[AsistenciaEstatus] AS [AsistenciaEstatus], 
+    [V_GeneralNivelRegion].[NotaAsistencia] AS [NotaAsistencia], 
+    [V_GeneralNivelRegion].[InstalacionEstatus] AS [InstalacionEstatus], 
+    [V_GeneralNivelRegion].[NotaInstalacion] AS [NotaInstalacion], 
+    [V_GeneralNivelRegion].[IncidentesEstatus] AS [IncidentesEstatus], 
+    [V_GeneralNivelRegion].[NotaIncidente] AS [NotaIncidente], 
+    [V_GeneralNivelRegion].[DesayunoEstatus] AS [DesayunoEstatus], 
+    [V_GeneralNivelRegion].[NotaDesayuno] AS [NotaDesayuno], 
+    [V_GeneralNivelRegion].[ComidaEstatus] AS [ComidaEstatus], 
+    [V_GeneralNivelRegion].[NotaComida] AS [NotaComida], 
+    [V_GeneralNivelRegion].[CodigoIncidente] AS [CodigoIncidente]
+    FROM [dbo].[V_GeneralNivelRegion] AS [V_GeneralNivelRegion]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="DbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Region" EntityType="DbModel.Region" />
+          <EntitySet Name="RegionCoordinador" EntityType="DbModel.RegionCoordinador" />
+          <EntitySet Name="RegionUbicacion" EntityType="DbModel.RegionUbicacion" />
+          <EntitySet Name="Tc_Incidentes" EntityType="DbModel.Tc_Incidentes" />
+          <EntitySet Name="V_GeneralNivelDistrito" EntityType="DbModel.V_GeneralNivelDistrito" />
+          <EntitySet Name="V_GeneralNivelGlobal" EntityType="DbModel.V_GeneralNivelGlobal" />
+          <EntitySet Name="V_GeneralNivelRegion" EntityType="DbModel.V_GeneralNivelRegion" />
+        </EntityContainer>
+        <EntityType Name="Region">
+          <Key>
+            <PropertyRef Name="IdRegion" />
+          </Key>
+          <Property Name="IdRegion" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="RegionCoordinador">
+          <Key>
+            <PropertyRef Name="IdRegionCoordinador" />
+          </Key>
+          <Property Name="IdRegionCoordinador" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdRegion" Type="Int32" Nullable="false" />
+          <Property Name="Coordinador" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Telefonos" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="RegionUbicacion">
+          <Key>
+            <PropertyRef Name="IdRegionUbicacion" />
+          </Key>
+          <Property Name="IdRegionUbicacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdRegion" Type="Int32" Nullable="false" />
+          <Property Name="Ubicacion" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Tc_Incidentes">
+          <Key>
+            <PropertyRef Name="Inc_Id" />
+          </Key>
+          <Property Name="Inc_Id" Type="Int32" Nullable="false" />
+          <Property Name="Inc_Num" Type="String" MaxLength="8" FixedLength="true" Unicode="true" />
+          <Property Name="Inc_Concepto" Type="String" MaxLength="300" FixedLength="true" Unicode="true" />
+          <Property Name="Inc_Ref" Type="Int32" />
+        </EntityType>
+        <EntityType Name="V_GeneralNivelDistrito">
+          <Key>
+            <PropertyRef Name="D_DttoElec" />
+            <PropertyRef Name="IdRegion" />
+          </Key>
+          <Property Name="D_DttoElec" Type="Double" Nullable="false" />
+          <Property Name="D_TipoEleccion" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="IdRegion" Type="Int32" Nullable="false" />
+          <Property Name="AsistenciaConteo" Type="Int32" />
+          <Property Name="AsistenciaCasillas" Type="Int32" />
+          <Property Name="InstalacionConteo" Type="Int32" />
+          <Property Name="InstalacionCasillas" Type="Int32" />
+          <Property Name="IncidentesConteo" Type="Int32" />
+          <Property Name="IncidentesCasillas" Type="Int32" />
+          <Property Name="DesayunoConteo" Type="Int32" />
+          <Property Name="DesayunoCasillas" Type="Int32" />
+          <Property Name="ComidaConteo" Type="Int32" />
+          <Property Name="ComidaCasillas" Type="Int32" />
+          <Property Name="TotalCasillas" Type="Int32" />
+        </EntityType>
+        <EntityType Name="V_GeneralNivelGlobal">
+          <Key>
+            <PropertyRef Name="D_DttoElec" />
+          </Key>
+          <Property Name="D_DttoElec" Type="Double" Nullable="false" />
+          <Property Name="D_TipoEleccion" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="AsistenciaConteo" Type="Int32" />
+          <Property Name="AsistenciaCasillas" Type="Int32" />
+          <Property Name="InstalacionConteo" Type="Int32" />
+          <Property Name="InstalacionCasillas" Type="Int32" />
+          <Property Name="IncidentesConteo" Type="Int32" />
+          <Property Name="IncidentesCasillas" Type="Int32" />
+          <Property Name="DesayunoConteo" Type="Int32" />
+          <Property Name="DesayunoCasillas" Type="Int32" />
+          <Property Name="ComidaConteo" Type="Int32" />
+          <Property Name="ComidaCasillas" Type="Int32" />
+          <Property Name="TotalCasillas" Type="Int32" />
+        </EntityType>
+        <EntityType Name="V_GeneralNivelRegion">
+          <Key>
+            <PropertyRef Name="D_DttoElec" />
+            <PropertyRef Name="IdRegion" />
+            <PropertyRef Name="S_IdSeccion" />
+            <PropertyRef Name="AsistenciaEstatus" />
+            <PropertyRef Name="NotaAsistencia" />
+            <PropertyRef Name="InstalacionEstatus" />
+            <PropertyRef Name="NotaInstalacion" />
+            <PropertyRef Name="IncidentesEstatus" />
+            <PropertyRef Name="NotaIncidente" />
+            <PropertyRef Name="DesayunoEstatus" />
+            <PropertyRef Name="NotaDesayuno" />
+            <PropertyRef Name="ComidaEstatus" />
+            <PropertyRef Name="NotaComida" />
+            <PropertyRef Name="CodigoIncidente" />
+          </Key>
+          <Property Name="D_DttoElec" Type="Double" Nullable="false" />
+          <Property Name="IdRegion" Type="Int32" Nullable="false" />
+          <Property Name="S_IdSeccion" Type="Double" Nullable="false" />
+          <Property Name="TC_Descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="AsistenciaEstatus" Type="Int32" Nullable="false" />
+          <Property Name="NotaAsistencia" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="InstalacionEstatus" Type="Int32" Nullable="false" />
+          <Property Name="NotaInstalacion" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="IncidentesEstatus" Type="Int32" Nullable="false" />
+          <Property Name="NotaIncidente" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="DesayunoEstatus" Type="Int32" Nullable="false" />
+          <Property Name="NotaDesayuno" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ComidaEstatus" Type="Int32" Nullable="false" />
+          <Property Name="NotaComida" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CodigoIncidente" Type="Int32" Nullable="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DbModelStoreContainer" CdmEntityContainer="DbEntities">
+          <EntitySetMapping Name="Region">
+            <EntityTypeMapping TypeName="DbModel.Region">
+              <MappingFragment StoreEntitySet="Region">
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IdRegion" ColumnName="IdRegion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RegionCoordinador">
+            <EntityTypeMapping TypeName="DbModel.RegionCoordinador">
+              <MappingFragment StoreEntitySet="RegionCoordinador">
+                <ScalarProperty Name="Telefonos" ColumnName="Telefonos" />
+                <ScalarProperty Name="Coordinador" ColumnName="Coordinador" />
+                <ScalarProperty Name="IdRegion" ColumnName="IdRegion" />
+                <ScalarProperty Name="IdRegionCoordinador" ColumnName="IdRegionCoordinador" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RegionUbicacion">
+            <EntityTypeMapping TypeName="DbModel.RegionUbicacion">
+              <MappingFragment StoreEntitySet="RegionUbicacion">
+                <ScalarProperty Name="Ubicacion" ColumnName="Ubicacion" />
+                <ScalarProperty Name="IdRegion" ColumnName="IdRegion" />
+                <ScalarProperty Name="IdRegionUbicacion" ColumnName="IdRegionUbicacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tc_Incidentes">
+            <EntityTypeMapping TypeName="DbModel.Tc_Incidentes">
+              <MappingFragment StoreEntitySet="Tc_Incidentes">
+                <ScalarProperty Name="Inc_Ref" ColumnName="Inc_Ref" />
+                <ScalarProperty Name="Inc_Concepto" ColumnName="Inc_Concepto" />
+                <ScalarProperty Name="Inc_Num" ColumnName="Inc_Num" />
+                <ScalarProperty Name="Inc_Id" ColumnName="Inc_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_GeneralNivelDistrito">
+            <EntityTypeMapping TypeName="DbModel.V_GeneralNivelDistrito">
+              <MappingFragment StoreEntitySet="V_GeneralNivelDistrito">
+                <ScalarProperty Name="TotalCasillas" ColumnName="TotalCasillas" />
+                <ScalarProperty Name="ComidaCasillas" ColumnName="ComidaCasillas" />
+                <ScalarProperty Name="ComidaConteo" ColumnName="ComidaConteo" />
+                <ScalarProperty Name="DesayunoCasillas" ColumnName="DesayunoCasillas" />
+                <ScalarProperty Name="DesayunoConteo" ColumnName="DesayunoConteo" />
+                <ScalarProperty Name="IncidentesCasillas" ColumnName="IncidentesCasillas" />
+                <ScalarProperty Name="IncidentesConteo" ColumnName="IncidentesConteo" />
+                <ScalarProperty Name="InstalacionCasillas" ColumnName="InstalacionCasillas" />
+                <ScalarProperty Name="InstalacionConteo" ColumnName="InstalacionConteo" />
+                <ScalarProperty Name="AsistenciaCasillas" ColumnName="AsistenciaCasillas" />
+                <ScalarProperty Name="AsistenciaConteo" ColumnName="AsistenciaConteo" />
+                <ScalarProperty Name="IdRegion" ColumnName="IdRegion" />
+                <ScalarProperty Name="D_TipoEleccion" ColumnName="D_TipoEleccion" />
+                <ScalarProperty Name="D_DttoElec" ColumnName="D_DttoElec" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_GeneralNivelGlobal">
+            <EntityTypeMapping TypeName="DbModel.V_GeneralNivelGlobal">
+              <MappingFragment StoreEntitySet="V_GeneralNivelGlobal">
+                <ScalarProperty Name="TotalCasillas" ColumnName="TotalCasillas" />
+                <ScalarProperty Name="ComidaCasillas" ColumnName="ComidaCasillas" />
+                <ScalarProperty Name="ComidaConteo" ColumnName="ComidaConteo" />
+                <ScalarProperty Name="DesayunoCasillas" ColumnName="DesayunoCasillas" />
+                <ScalarProperty Name="DesayunoConteo" ColumnName="DesayunoConteo" />
+                <ScalarProperty Name="IncidentesCasillas" ColumnName="IncidentesCasillas" />
+                <ScalarProperty Name="IncidentesConteo" ColumnName="IncidentesConteo" />
+                <ScalarProperty Name="InstalacionCasillas" ColumnName="InstalacionCasillas" />
+                <ScalarProperty Name="InstalacionConteo" ColumnName="InstalacionConteo" />
+                <ScalarProperty Name="AsistenciaCasillas" ColumnName="AsistenciaCasillas" />
+                <ScalarProperty Name="AsistenciaConteo" ColumnName="AsistenciaConteo" />
+                <ScalarProperty Name="D_TipoEleccion" ColumnName="D_TipoEleccion" />
+                <ScalarProperty Name="D_DttoElec" ColumnName="D_DttoElec" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_GeneralNivelRegion">
+            <EntityTypeMapping TypeName="DbModel.V_GeneralNivelRegion">
+              <MappingFragment StoreEntitySet="V_GeneralNivelRegion">
+                <ScalarProperty Name="CodigoIncidente" ColumnName="CodigoIncidente" />
+                <ScalarProperty Name="NotaComida" ColumnName="NotaComida" />
+                <ScalarProperty Name="ComidaEstatus" ColumnName="ComidaEstatus" />
+                <ScalarProperty Name="NotaDesayuno" ColumnName="NotaDesayuno" />
+                <ScalarProperty Name="DesayunoEstatus" ColumnName="DesayunoEstatus" />
+                <ScalarProperty Name="NotaIncidente" ColumnName="NotaIncidente" />
+                <ScalarProperty Name="IncidentesEstatus" ColumnName="IncidentesEstatus" />
+                <ScalarProperty Name="NotaInstalacion" ColumnName="NotaInstalacion" />
+                <ScalarProperty Name="InstalacionEstatus" ColumnName="InstalacionEstatus" />
+                <ScalarProperty Name="NotaAsistencia" ColumnName="NotaAsistencia" />
+                <ScalarProperty Name="AsistenciaEstatus" ColumnName="AsistenciaEstatus" />
+                <ScalarProperty Name="TC_Descripcion" ColumnName="TC_Descripcion" />
+                <ScalarProperty Name="S_IdSeccion" ColumnName="S_IdSeccion" />
+                <ScalarProperty Name="IdRegion" ColumnName="IdRegion" />
+                <ScalarProperty Name="D_DttoElec" ColumnName="D_DttoElec" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
